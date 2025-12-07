@@ -1,0 +1,234 @@
+/* -------------------------------------- */
+/* Variables de color para el tema Videoclub */
+/* -------------------------------------- */
+:root {
+    --vc-dark: #1c1c1c; /* Fondo principal */
+    --vc-dark-card: #2b2b2b; /* Fondo de la tarjeta */
+    --vc-red: #e50914; /* Rojo de acento (Netflix/Botones) */
+    --vc-gold: #ffc300; /* Dorado/Amarillo de acento (Títulos, Foco) */
+    --vc-light: #f7f7f7; /* Texto claro */
+    --vc-gray: #b0b0b0; /* Texto secundario */
+    --vc-dark-gray: #444; /* Borde y separadores */
+}
+
+/* -------------------------------------- */
+/* Estilos del Contenedor Principal (Main) */
+/* -------------------------------------- */
+main {
+    padding: 2rem 0;
+}
+
+.card-perfil {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: var(--vc-dark-card);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--vc-dark-gray);
+    overflow: hidden;
+}
+
+.perfil-flex {
+    display: flex;
+    gap: 30px;
+}
+
+/* -------------------------------------- */
+/* Columna de Foto y Botones */
+/* -------------------------------------- */
+.perfil-foto {
+    flex-shrink: 0;
+    width: 350px; /* Ancho fijo para la portada */
+    height: 500px; /* Altura fija para la portada */
+    background-color: var(--vc-dark);
+    border-radius: 15px 0 0 15px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.perfil-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 5px solid var(--vc-gold); /* Marco Dorado */
+    box-sizing: border-box;
+}
+
+/* Estilo para el placeholder (EXTRAÍDO DEL INLINE) */
+.poster-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--vc-dark);
+}
+
+
+.perfil-botones {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 0 15px;
+    justify-content: center;
+}
+
+.perfil-botones button {
+    padding: 10px 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Botón Editar */
+.perfil-botones a:nth-child(1) button {
+    background-color: var(--vc-gold);
+    color: var(--vc-dark);
+}
+
+.perfil-botones a:nth-child(1) button:hover {
+    background-color: #ffd74a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 195, 0, 0.3);
+}
+
+/* Botón Eliminar */
+.perfil-botones a:nth-child(2) button {
+    background-color: var(--vc-red);
+    color: white;
+}
+
+.perfil-botones a:nth-child(2) button:hover {
+    background-color: #ff3340;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(229, 9, 20, 0.3);
+}
+
+/* -------------------------------------- */
+/* Columna de Datos */
+/* -------------------------------------- */
+.perfil-datos {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+.perfil-datos h1 {
+    color: var(--vc-red);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--vc-dark-gray);
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* Subtítulo Director (EXTRAÍDO DEL INLINE) */
+.perfil-datos .lead {
+    color: var(--vc-gold);
+    font-style: italic;
+    margin-top: -10px;
+}
+
+/* Separador (EXTRAÍDO DEL INLINE) */
+.perfil-datos hr {
+    border-color: var(--vc-dark-gray);
+}
+
+
+.perfil-item {
+    font-size: 1.1rem;
+    color: var(--vc-light);
+    font-weight: 600;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.perfil-item span {
+    display: block;
+    font-weight: 400;
+    color: var(--vc-gray);
+    margin-top: 2px;
+}
+
+/* Enlace a PDF/Ficha Técnica */
+.perfil-datos a {
+    color: var(--vc-gold);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.perfil-datos a:hover {
+    color: #ffd74a;
+    text-decoration: underline;
+}
+
+/* -------------------------------------- */
+/* Adaptación a Móviles */
+/* -------------------------------------- */
+@media (max-width: 900px) {
+    .card-perfil {
+        margin: 1rem;
+    }
+    .perfil-flex {
+        flex-direction: column;
+        gap: 0;
+    }
+    .perfil-foto {
+        width: 100%;
+        height: auto;
+        max-height: 450px;
+        border-radius: 15px 15px 0 0;
+        border-right: none;
+    }
+    .perfil-foto img {
+        border: none;
+        border-bottom: 3px solid var(--vc-gold);
+    }
+    .perfil-datos {
+        padding: 25px;
+    }
+    .perfil-botones {
+        margin-bottom: 20px;
+    }
+}
+
+/* -------------------------------------- */
+/* Estilos de la Ventana Modal (Bootstrap) */
+/* -------------------------------------- */
+.modal-content {
+    background-color: var(--vc-dark-card) !important;
+    color: var(--vc-light) !important;
+    border: 1px solid var(--vc-dark-gray);
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--vc-dark-gray);
+}
+
+.modal-title {
+    color: var(--vc-gold) !important;
+}
+
+.modal-body {
+    color: var(--vc-gray);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--vc-dark-gray);
+}
+
+.modal-footer .btn-secondary {
+    background-color: #555;
+    border-color: #555;
+    color: white;
+}
+
+.modal-footer .btn-danger {
+    background-color: var(--vc-red);
+    border-color: var(--vc-red);
+    color: white;
+}
