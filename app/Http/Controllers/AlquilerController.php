@@ -26,7 +26,7 @@ class AlquilerController extends Controller {
 
     function create():View{
         $clientes = Cliente::pluck('nombre', 'id');
-        $copias = Copia::with('pelicula')->get();
+        $copias = Copia::with('pelicula')->where('estado', 'Disponible')->get();
         return view('alquiler.create', ['clientes' => $clientes, 'copias' => $copias]);
     }
 
@@ -36,6 +36,12 @@ class AlquilerController extends Controller {
         $alquiler = new Alquiler($request->all());
         $result = false;
         $txtmessage = "";
+
+        $copia = Copia::find($request->idcopia);
+        if($alquiler->fecha_dev !=null) {
+            $copia->estado = 'Alquilada';
+            $copia->save();
+        }
 
         try {
             $result = $alquiler->save(); 
@@ -62,7 +68,7 @@ class AlquilerController extends Controller {
     // }
 
     function edit(Alquiler $alquiler):View{
-        $copias = Copia::with('pelicula')->get();
+        $copias = Copia::with('pelicula')->where('estado', 'Disponible')->get();
         $clientes = Cliente::pluck('nombre', 'id');
         return view('alquiler.edit', ['alquiler' => $alquiler, 'copias' => $copias, 'clientes' => $clientes]);
     }
@@ -74,6 +80,12 @@ class AlquilerController extends Controller {
         $result = false;
         $alquiler->fill($request->all());
         $txtmessage = "";
+
+        $copia = Copia::find($request->idcopia);
+        if($alquiler->fecha_dev !=null) {
+            $copia->estado = 'Alquilada';
+            $copia->save();
+        }
 
         try {
 

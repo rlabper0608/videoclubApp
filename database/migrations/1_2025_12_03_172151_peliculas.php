@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->text('actores');
             $table->date('fecha_estreno');
             $table->integer('duracion');
-            $table->string('clasificacion', 60);
+            $table->enum('clasificacion', ['Apta para todos los publicos', '+7', '+12', '+16', '+18'])->default('Apta para todos los publicos');
             $table->string('portada',100)->unique()->nullable();
             $table->timestamps();
             $table->unique(['titulo','director']);

@@ -72,7 +72,14 @@ Añadir pelicula
         </div>
         @enderror
         <label for="clasificacion">Clasifiación de la pelicula:</label>
-        <input class="form-control" minlength="3" maxlength="60" required id="clasificacion" name="clasificacion" placeholder="Clasificación de la pelicula" value="{{ old('clasificacion') }}" type="text">
+        <select class="form-control" required id="clasificacion" name="clasificacion">
+            <option>Clasificación</option>
+            <option value="Apta para todos los publicos" @if(old('clasificacion') == 'Apta para todos los publicos') selected @endif>Apta para todos los publicos</option>
+            <option value="+7" @if(old('clasificacion') == '+7') selected @endif>+7</option>
+            <option value="+12" @if(old('clasificacion') == '+12') selected @endif>+12</option>
+            <option value="+16" @if(old('clasificacion') == '+16') selected @endif>+16</option>
+            <option value="+18" @if(old('clasificacion') == '+18') selected @endif>+18</option>
+        </select>
     </div>
     <div>
         @error('portada')

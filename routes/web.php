@@ -28,16 +28,3 @@ Route::put('copia/{copia}', [CopiaController::class, 'update'])->name('copia.upd
 Route::delete('copia/{copia}', [CopiaController::class, 'destroy'])->name('copia.destroy')->middleware(['auth', 'verified']);
 
 Auth::routes(['verify'=> true]);
-
-// Convertido de Copia a Película
-
-// // VISUALIZACIÓN (Abierta a 'auth' en tu esquema de grupos)
-// Route::get('pelicula', [PeliculaController::class, 'index'])->name('pelicula.index');
-// Route::get('pelicula/{pelicula}', [PeliculaController::class, 'show'])->name('pelicula.show'); 
-
-// // MODIFICACIÓN (Protegido por 'auth' y 'verified')
-// Route::get('pelicula/create', [PeliculaController::class, 'create'])->name('pelicula.create');
-// Route::post('pelicula', [PeliculaController::class, 'store'])->name('pelicula.store')->middleware(['auth', 'verified']);
-// Route::get('pelicula/{pelicula}/edit', [PeliculaController::class, 'edit'])->name('pelicula.edit')->middleware(['auth', 'verified']);
-// Route::put('pelicula/{pelicula}', [PeliculaController::class, 'update'])->name('pelicula.update')->middleware(['auth', 'verified']);
-// Route::delete('pelicula/{pelicula}', [PeliculaController::class, 'destroy'])->name('pelicula.destroy')->middleware(['auth', 'verified']);

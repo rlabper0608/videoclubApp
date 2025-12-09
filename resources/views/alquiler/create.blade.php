@@ -21,7 +21,7 @@ Crear un Alquiler
         <select name="idcopia" id="idcopia" required class="form-control">
             <option value="" @if(old('idcopia') == null) selected @endif disabled>Selecciona una pelicula</option>
             @foreach($copias as $copia)
-                <option value="{{ $copia->id }}" @if(old('idcopia') == $copia->id) selected @endif>{{ $copia->pelicula->titulo }}</option>
+                <option value="{{ $copia->id }}" @if(old('idcopia') == $copia->id) selected @endif>{{ $copia->pelicula->titulo }} - {{ $copia->formato }}</option>
             @endforeach
          </select>
     </div>

@@ -23,12 +23,16 @@ VideoClub Dashboard Principal
     <p class="mt-2">Administrar títulos, directores y portadas.</p>
 </a>
 
-<!-- 2. Gestión de Clientes -->
-<a href="{{ route('cliente.index') }}" class="dashboard-card theme-cliente">
-    <i class="fas fa-users"></i>
-    <h3>Base de Datos de Clientes</h3>
-    <p class="mt-2">Gestionar perfiles, contactos y datos de clientes.</p>
-</a>
+@auth
+    @if(Auth::user()->hasVerifiedEmail())
+        <!-- 2. Gestión de Clientes -->
+        <a href="{{ route('cliente.index') }}" class="dashboard-card theme-cliente">
+            <i class="fas fa-users"></i>
+            <h3>Base de Datos de Clientes</h3>
+            <p class="mt-2">Gestionar perfiles, contactos y datos de clientes.</p>
+        </a>
+    @endif
+@endauth
 
 <!-- 3. Gestión de Copias -->
 <a href="{{ route('copia.index') }}" class="dashboard-card theme-copia">
@@ -37,12 +41,16 @@ VideoClub Dashboard Principal
     <p class="mt-2">Control de stock, códigos de barras y formatos (DVD, Bluray, etc.).</p>
 </a>
 
-<!-- 4. Gestión de Alquileres -->
-<a href="{{ route('alquiler.index') }}" class="dashboard-card theme-alquiler">
-    <i class="fas fa-handshake"></i>
-    <h3>Registros de Alquiler</h3>
-    <p class="mt-2">Rastrear transacciones, fechas de salida y devolución.</p>
-</a>
+@auth
+    @if(Auth::user()->hasVerifiedEmail())
+        <!-- 4. Gestión de Alquileres -->
+        <a href="{{ route('alquiler.index') }}" class="dashboard-card theme-alquiler">
+            <i class="fas fa-handshake"></i>
+            <h3>Registros de Alquiler</h3>
+            <p class="mt-2">Rastrear transacciones, fechas de salida y devolución.</p>
+        </a>
+    @endif
+@endauth
 
 <!-- Enlace a la sección "Acerca de" si la tienes -->
 <a href="{{ route('about') }}" class="dashboard-card theme-cliente" style="opacity: 0.7;">

@@ -67,10 +67,12 @@ form label {
     outline: none;
     border-color: var(--rent-focus); 
     box-shadow: 0 0 5px var(--rent-focus); /* Resplandor al hacer foco (Dorado) */
+    color: #ffffff !important; 
 }
 
 .form-control option {
     background-color: var(--rent-dark);
+    color: var(--rent-light) !important; 
 }
 
 /* -------------------------------------- */

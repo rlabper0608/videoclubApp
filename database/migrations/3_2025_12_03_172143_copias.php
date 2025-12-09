@@ -12,8 +12,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('idpelicula');
             $table->integer('codigo_barras')->unique();
-            $table->string('estado', 60);
-            $table->string('formato', 60);
+            $table->enum('estado', ['Disponible', 'Alquilado', 'Estropeado'])->default('Disponible');
+            $table->enum('formato',['DVD', 'Blu-Ray', 'CD'])->default('DVD');
             $table->timestamps();
             $table->foreign('idpelicula')->references('id')->on('pelicula') ->onDelete('cascade');
 

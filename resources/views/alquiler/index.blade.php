@@ -12,21 +12,19 @@ Listado de Peliculas Alquiladas
 
 <!-- Ventanas Modales principio -->
 
-<div class="modal fade" id="destroyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="modalDeleteTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">¿Seguro que quieres eliminar este registro de alquiler?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title" id="modalDeleteTitle">Confirmación de Eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" id="destroyModalContent">
-        ...
+      <div class="modal-body">
+        <p>Este registro de alquiler será eliminado de forma permanente.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button  form="form-delete" type="submit" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button form="form-delete" type="submit" class="btn btn-danger">Eliminar</button>
       </div>
     </div>
   </div>
@@ -45,6 +43,41 @@ style="background-color: var(--rent-accent, #8b5cf6); border-color: var(--rent-a
 
 <hr>
 
+
+<h1>Alquileres activos</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <th>#</th>
+        <th>Pelicula</th>
+        <th>Cliente</th>
+        <th>Fecha Alquiler</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($alquileres as $alquiler)
+        @if($alquiler->fecha_dev == null)
+          <tr>
+              <td>{{ $alquiler->id }}</td>
+              <td>{{ $alquiler->copia->pelicula->titulo }}</td>
+              <td>{{ $alquiler->cliente->nombre }}</td>
+              <td>{{ $alquiler->fecha_sal }}</td>
+              <td>
+                  <a href=" {{ route('alquiler.edit', $alquiler->id) }}" class="btn btn-warning btn-sm text-white">Edit</a>
+                  <a class="link-destroy btn btn-danger btn-sm text-white" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#destroyModal"
+                    data-href="{{ route('alquiler.destroy', $alquiler)}}" 
+                    data-alumno="{{ $alquiler->id }}">Delete</a>
+              </td>
+          </tr>
+        @endif
+    @endforeach
+  </tbody>
+</table>
+<br>
+<h1>Alquileres devueltos</h1>
+
 <table class="table table-hover">
   <thead>
     <tr>
@@ -57,21 +90,23 @@ style="background-color: var(--rent-accent, #8b5cf6); border-color: var(--rent-a
   </thead>
   <tbody>
     @foreach($alquileres as $alquiler)
-        <tr>
-            <td>{{ $alquiler->id }}</td>
-            <td>{{ $alquiler->copia->pelicula->titulo }}</td>
-            <td>{{ $alquiler->cliente->nombre }}</td>
-            <td>{{ $alquiler->fecha_sal }}</td>
-            <td>{{ $alquiler->fecha_deb }}</td>
-            <td>
-                <a href=" {{ route('alquiler.edit', $alquiler->id) }}" class="btn btn-warning btn-sm text-white">Edit</a>
-                <a class="link-destroy btn btn-danger btn-sm text-white" 
-                  data-bs-toggle="modal"
-                  data-bs-target="#destroyModal"
-                  data-href="{{ route('alquiler.destroy', $alquiler)}}" 
-                  data-alumno="{{ $alquiler->id }}">Delete</a>
-            </td>
-        </tr>
+        @if($alquiler->fecha_dev != null)
+          <tr>
+              <td>{{ $alquiler->id }}</td>
+              <td>{{ $alquiler->copia->pelicula->titulo }}</td>
+              <td>{{ $alquiler->cliente->nombre }}</td>
+              <td>{{ $alquiler->fecha_sal }}</td>
+              <td>{{ $alquiler->fecha_deb }}</td>
+              <td>
+                  <a href=" {{ route('alquiler.edit', $alquiler->id) }}" class="btn btn-warning btn-sm text-white">Edit</a>
+                  <a class="link-destroy btn btn-danger btn-sm text-white" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#destroyModal"
+                    data-href="{{ route('alquiler.destroy', $alquiler)}}" 
+                    data-alumno="{{ $alquiler->id }}">Delete</a>
+              </td>
+          </tr>
+        @endif
     @endforeach
   </tbody>
   <tfoot>
@@ -86,4 +121,8 @@ style="background-color: var(--rent-accent, #8b5cf6); border-color: var(--rent-a
     @csrf
     @method('delete')
 </form>
+@endsection
+
+@section('scripts')
+<script src="{{ url('assets/js/borrar.js') }}"></script>
 @endsection

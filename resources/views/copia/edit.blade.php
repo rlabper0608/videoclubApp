@@ -42,7 +42,12 @@ Editar una Copia
         </div>
         @enderror
         <label for="estado">Estado de la copia:</label>
-        <input class="form-control" required id="estado" name="estado" minlength="3" maxlength="60" value="{{ old('estado', $copia->estado) }}" type="text">
+        <select class="form-control" required id="estado" name="estado">
+            <option>Elige el estado</option>
+            <option value="Disponible" @if(old('estado', $copia->estado) == 'Disponible') selected @endif>Disponible</option>
+            <option value="Alquilado" @if(old('estado', $copia->estado) == 'Alquilado') selected @endif>Alquilado</option>
+            <option value="Estropeado" @if(old('estado', $copia->estado) == 'Estropeado') selected @endif>Estropeado</option>
+        </select>
     </div>
     <div class="espacio">
         @error('formato')
@@ -51,7 +56,12 @@ Editar una Copia
         </div>
         @enderror
         <label for="formato">Formato de la copia:</label>
-        <input class="form-control" required id="formato" name="formato" minlength="3" maxlength="60" value="{{ old('formato', $copia->formato) }}" type="text">
+        <select class="form-control" required id="formato" name="formato">
+            <option>Elige el formato</option>
+            <option value="DVD" @if(old('formato', $copia->formato) == 'DVD') selected @endif>DVD</option>
+            <option value="Blu-Ray" @if(old('formato', $copia->formato) == 'Blu-Ray') selected @endif>Blu-Ray</option>
+            <option value="CD" @if(old('formato', $copia->formato) == 'CD') selected @endif>CD</option>
+        </select>
     </div>
     
     <div class="espacio">

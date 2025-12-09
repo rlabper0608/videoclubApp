@@ -81,6 +81,7 @@ form label::before {
     border-color: var(--vc-gold); 
     background: #4a4a4a;
     box-shadow: 0 0 0 4px rgba(255, 195, 0, 0.2);
+    color: #ffffff !important; 
 }
 
 .form-control::placeholder {

@@ -82,5 +82,5 @@ Añadir Cliente
 @endsection
 
 @section('scripts')
-<script src="{{  url('assets/js/arrastrar.js') }}"></script>
+<script src="{{  url('assets/js/arrastrarPerfil.js') }}"></script>
 @endsection

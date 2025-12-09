@@ -115,15 +115,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('pelicula.index') }}">Películas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cliente.index') }}">Clientes</a>
-                    </li>
+                    @auth
+                        @if(Auth::user()->hasVerifiedEmail())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('cliente.index') }}">Clientes</a>
+                            </li>
+                        @endif
+                    @endauth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('copia.index') }}">Copias</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('alquiler.index') }}">Alquiler</a>
-                    </li>
+                    @auth
+                        @if(Auth::user()->hasVerifiedEmail())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('alquiler.index') }}">Alquiler</a>
+                            </li>
+                       @endif
+                    @endauth
                     
                 </ul>
                 <ul class="navbar-nav  me-auto mb-2 mb-lg-0">

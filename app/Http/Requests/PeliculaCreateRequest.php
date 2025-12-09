@@ -85,7 +85,7 @@ class PeliculaCreateRequest extends FormRequest {
             'genero'            => 'required|string|min:3|max:60',
             'fecha_estreno'     => 'required|date',
             'duracion'          => 'required|integer|min:1|max:999',
-            'clasificacion'     => 'required|string|min:3|max:60',
+            'clasificacion'     => 'required|in:Apta para todos los publicos,+7,+12,+16,+18',
             'actores'           => 'required|string|min:20', 
             'portada'           => 'nullable|image|unique:pelicula,portada', 
         ];

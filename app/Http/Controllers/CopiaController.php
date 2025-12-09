@@ -18,8 +18,11 @@ use App\Http\Requests\CopiaEditRequest;
 
 class CopiaController extends Controller {
     
-    function index(): View {
+    function index(Request $request): View {
         $copias = Copia::all(); 
+        $query = Copia::with('pelicula');
+
+        $copias = $query->get();
         return view('copia.index', ['copias' => $copias]);
     }
 

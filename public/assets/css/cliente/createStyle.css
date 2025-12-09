@@ -73,6 +73,7 @@ form label::before {
     border-color: var(--client-focus); 
     background: #3a415a;
     box-shadow: 0 0 0 3px rgba(0, 192, 169, 0.3); /* Sombra de acento Teal */
+    color: #ffffff !important; 
 }
 
 .form-control::placeholder {

@@ -40,9 +40,7 @@ class CopiaCreateRequest extends FormRequest {
 
             // Reglas de estado
             'estado.required' => $required,
-            'estado.string' => $string,
-            'estado.min' => $min,
-            'estado.max' => $max,
+            'estado.in' => 'El estado seleccionado no existe',
 
             'formato.required' => $required,
             'formato.string' => $string,
@@ -56,8 +54,8 @@ class CopiaCreateRequest extends FormRequest {
         return [
             'idpelicula'    => 'required|exists:pelicula,id',
             'codigo_barras' => 'required|string|min:10|max:10|unique:copia,codigo_barras',
-            'estado'        => 'required|string|min:3|max:60',
-            'formato'       => 'required|string|min:3|max:60',
+            'estado'        => 'required|in:Disponible,Alquilado,Estropeado',
+            'formato'       => 'required|in:DVD,Blu-Ray,CD',
         ];
     }
 }
