@@ -59,7 +59,7 @@ style="background-color: var(--rent-accent, #8b5cf6); border-color: var(--rent-a
         @if($alquiler->fecha_dev == null)
           <tr>
               <td>{{ $alquiler->id }}</td>
-              <td>{{ $alquiler->copia->pelicula->titulo }}</td>
+              <td>{{ $alquiler->copia->pelicula->titulo }} - {{ $alquiler->copia->formato }}</td>
               <td>{{ $alquiler->cliente->nombre }}</td>
               <td>{{ $alquiler->fecha_sal }}</td>
               <td>
@@ -93,7 +93,7 @@ style="background-color: var(--rent-accent, #8b5cf6); border-color: var(--rent-a
         @if($alquiler->fecha_dev != null)
           <tr>
               <td>{{ $alquiler->id }}</td>
-              <td>{{ $alquiler->copia->pelicula->titulo }}</td>
+              <td>{{ $alquiler->copia->pelicula->titulo }} - {{ $alquiler->copia->formato }}</td>
               <td>{{ $alquiler->cliente->nombre }}</td>
               <td>{{ $alquiler->fecha_sal }}</td>
               <td>{{ $alquiler->fecha_deb }}</td>

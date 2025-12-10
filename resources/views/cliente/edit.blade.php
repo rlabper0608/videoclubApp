@@ -67,7 +67,7 @@ Editar Cliente
         
         @if($cliente->foto != null)
         <div class="existing-image">
-            <img src="{{ $foto->getPath() }}" width="200px" style="border-radius: 8px;">
+            <img src="{{ $cliente->getPath() }}" width="200px" style="border-radius: 8px;">
             <div class="form-check mt-2">
                 <input class="form-check-input" type="checkbox" value="true" id="deleteImage" name="deleteImage">
                 <label class="form-check-label" for="deleteImage">

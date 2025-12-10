@@ -37,17 +37,17 @@ class AlquilerController extends Controller {
         $result = false;
         $txtmessage = "";
 
-        $copia = Copia::find($request->idcopia);
-        if($alquiler->fecha_dev !=null) {
-            $copia->estado = 'Alquilada';
-            $copia->save();
-        }
-
         try {
             $result = $alquiler->save(); 
             $txtmessage = "El registro de alquiler se ha creado correctamente.";
             
-            
+            $copia = Copia::find($request->idcopia);
+
+            if($alquiler->fecha_dev == null) {
+                $copia->estado = 'Alquilado';
+                $copia->save();
+            }
+
         } catch(UniqueConstraintViolationException $e){
             $txtmessage = "Clave duplicada: Ya existe un registro idéntico de alquiler.";
         } 
@@ -68,7 +68,7 @@ class AlquilerController extends Controller {
     // }
 
     function edit(Alquiler $alquiler):View{
-        $copias = Copia::with('pelicula')->where('estado', 'Disponible')->get();
+        $copias = Copia::with('pelicula')->where('estado', 'Alquilado')->get();
         $clientes = Cliente::pluck('nombre', 'id');
         return view('alquiler.edit', ['alquiler' => $alquiler, 'copias' => $copias, 'clientes' => $clientes]);
     }
@@ -76,21 +76,26 @@ class AlquilerController extends Controller {
 
     function update(Request $request, Alquiler $alquiler): RedirectResponse{
 
+        $fechaDevAnterior = $alquiler->fecha_dev;
 
         $result = false;
         $alquiler->fill($request->all());
         $txtmessage = "";
 
-        $copia = Copia::find($request->idcopia);
-        if($alquiler->fecha_dev !=null) {
-            $copia->estado = 'Alquilada';
-            $copia->save();
-        }
+        $devolucionCambiada = ($fechaDevAnterior === null  && $alquiler->fecha_dev !== null);
 
         try {
 
             $result = $alquiler->save();
             $txtmessage = "El registro de alquiler se ha actualizado correctamente.";
+
+            $copia = \App\Models\Copia::find($alquiler->idcopia); 
+
+            if($devolucionCambiada) {
+                $copia->estado = 'Disponible';
+                $copia->save();
+            }
+
         } catch(UniqueConstraintViolationException $e) {
             $txtmessage = "Clave duplicada: Ya existe un registro idéntico de alquiler.";
         } catch(QueryException $e) {
