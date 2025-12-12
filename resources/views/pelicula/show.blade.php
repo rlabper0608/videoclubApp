@@ -45,19 +45,22 @@
                     <img src="{{ $pelicula->getPath() }}" alt="">
                 </div>
 
-                <div class="perfil-botones">
-                    <a href="{{ route('pelicula.edit', $pelicula->id) }}">
-                        <button>Editar</button>
-                    </a>
+                @auth
+                    @if(Auth::user()->hasVerifiedEmail())
+                        <div class="perfil-botones">
+                            <a href="{{ route('pelicula.edit', $pelicula->id) }}">
+                                <button>Editar</button>
+                            </a>
 
-                    <a data-bs-toggle="modal"
-                    data-bs-target="#destroyModal"
-                    data-href="{{ route('pelicula.destroy', $pelicula->id)}}"
-                    data-pelicula-titulo="{{ $pelicula->titulo }}">
-                        <button>Eliminar</button>
-                    </a>
-                </div>
-                
+                            <a data-bs-toggle="modal"
+                            data-bs-target="#destroyModal"
+                            data-href="{{ route('pelicula.destroy', $pelicula->id)}}"
+                            data-pelicula-titulo="{{ $pelicula->titulo }}">
+                                <button>Eliminar</button>
+                            </a>
+                        </div>
+                    @endif
+                @endauth
             </div>
 
             <!-- DATOS -->
@@ -99,6 +102,30 @@
         </div>
     </div>
 
+    <h3>Comentarios</h3>
+    @foreach($pelicula->valoraciones as $valoracion)
+        <hr>
+        <p class="lead">
+            {{ $valoracion->comment }}
+            @if(session('valoraciones') != null && in_array($valoracion->id, session('valoraciones')))
+                <a href="{{ route('valoracion.edit', $valoracion->id) }}">editar comentario</a>
+            @endif
+        </p>
+        <p class="text-end">
+            {{ $valoracion->created_at->format('d/m/Y') }}
+        </p>
+    @endforeach
+
+    @guest
+        @else
+            <form method="post" action="{{ route('valoracion.store', $pelicula->id) }}">
+                @csrf
+                <input type="hidden" name="idpelicula" value="{{ $pelicula->id }}">
+                <label for="comment">Añade tu comentario</label>
+                <textarea class="form-control" minlength="5" id="comment" name="comment" placeholder="Añdade tu comentario sobre esta película" cols="60" rows="8">{{old('comment')}}</textarea>
+                <input class="btn btn-primary" value="Enviar Comentario" type="submit">    
+            </form>
+    @endguest
     </main>
 
     <form action="" method="post" id="form-delete">

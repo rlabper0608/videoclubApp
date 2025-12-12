@@ -53,8 +53,12 @@ Listado de Peliculas Alquiladas
         <th>#</th>
         <th>Pelicula</th>
         <th>Codigo de barras</th>
-        <th>Estado</th>
         <th>Formato</th>
+        @auth
+            @if(Auth::user()->hasVerifiedEmail())
+              <th>Estado</th>
+            @endif
+        @endauth
     </tr>
   </thead>
   <tbody>
@@ -63,10 +67,10 @@ Listado de Peliculas Alquiladas
             <td>{{ $copia->id }}</td>
             <td>{{ $copia->pelicula->titulo }}</td>
             <td>{{ $copia->codigo_barras}}</td>
-            <td>{{ $copia->estado }}</td>
             <td>{{ $copia->formato }}</td>
             @auth
-              @if(Auth::user()->hasVerifiedEmail())
+            @if(Auth::user()->hasVerifiedEmail())
+            <td>{{ $copia->estado }}</td>
                 <td>
                     <a href=" {{ route('copia.edit', $copia->id) }}" class="btn btn-warning btn-sm text-white">Edit</a>
                     <a class="link-destroy btn btn-danger btn-sm text-white" 

@@ -137,6 +137,15 @@
                 <ul class="navbar-nav  me-auto mb-2 mb-lg-0">
                     @guest
                     @else
+                        @auth
+                            @if(Auth::user()->hasVerifiedEmail())
+                                <li>
+                                    <a class="nav-link active" href="{{ route('dashboard') }}" id="profile">
+                                            Dashboard
+                                        </a>
+                                </li>
+                            @endif
+                        @endauth
                     <li>
                         <a class="nav-link active" href="{{ route('home') }}" id="profile">
                                 Profile
@@ -155,6 +164,12 @@
                             </form>
                         @endguest
                     </li>
+
+                    @guest 
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ route('register') }}">Register</a>
+                        </li>
+                    @endguest
                     
                 </ul>
             </div>

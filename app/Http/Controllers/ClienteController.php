@@ -17,23 +17,24 @@ use App\Http\Requests\ClienteEditRequest;
 
 class ClienteController extends Controller {
     
-    function index():View{
+    function index(): View {
         $clientes = Cliente::all(); 
         return view('cliente.index', ['clientes' => $clientes]);
     }
 
 
-    function create():View{
+    function create(): View {
         return view('cliente.create');
     }
 
-    function store(ClienteCreateRequest $request):RedirectResponse{
+    function store(ClienteCreateRequest $request): RedirectResponse {
         
         $cliente = new Cliente($request->all());
         $result = false;
         $txtmessage = "";
 
         try {
+
             $result = $cliente->save(); 
             $txtmessage = "El cliente se ha añadido correctamente.";
 
@@ -43,11 +44,16 @@ class ClienteController extends Controller {
                 $cliente->save();
             }
             
-        } catch(UniqueConstraintViolationException $e){
+        } catch(UniqueConstraintViolationException $e) {
+
             $txtmessage = "Clave duplicada: Ya existe un cliente con esa información.";
-        } catch(QueryException $e){
+
+        } catch(QueryException $e) {
+
             $txtmessage = "Error en la base de datos: Valor nulo o incorrecto.";
-        }catch (\Exception $e){
+
+        } catch (\Exception $e) {
+
             $txtmessage = "Error Fatal al guardar el cliente.";
         }
 
@@ -55,14 +61,18 @@ class ClienteController extends Controller {
             "mensajeTexto" => $txtmessage,
         ];
 
-        if($result){
+        if($result) {
+
             return redirect()->route('main')->with($message);
-        }else{
+
+        } else {
+
             return back()->withInput()->withErrors($message);
+
         }
     }
 
-    private function uploadFotografia(Request $request, Cliente $cliente):string {
+    private function uploadFotografia(Request $request, Cliente $cliente): string {
 
         $foto = $request->file('foto'); 
 
@@ -73,16 +83,18 @@ class ClienteController extends Controller {
         return $ruta;
     }
 
-    function show(Cliente $cliente):View{
+    function show(Cliente $cliente): View {
+
         return view('cliente.show', ['cliente' => $cliente]); 
     }
 
 
-    function edit(Cliente $cliente):View{
+    function edit(Cliente $cliente): View {
+
         return view('cliente.edit', ['cliente' => $cliente]); 
     }
 
-    function update(ClienteEditRequest $request, Cliente $cliente): RedirectResponse{ 
+    function update(ClienteEditRequest $request, Cliente $cliente): RedirectResponse { 
 
         if($request->deleteImage == 'true' && $cliente->foto) {
             Storage::delete($cliente->foto);
@@ -95,6 +107,7 @@ class ClienteController extends Controller {
         $txtmessage = "";
 
         try {
+
             if($request->hasFile('foto')) {
                 if ($cliente->foto) {
                     Storage::delete($cliente->foto); 
@@ -106,11 +119,17 @@ class ClienteController extends Controller {
 
             $result = $cliente->save();
             $txtmessage = "El cliente se ha actualizado correctamente.";
+
         } catch(UniqueConstraintViolationException $e) {
+
             $txtmessage = "Clave duplicada: Ya existe un cliente con esa información.";
+
         } catch(QueryException $e) {
+
             $txtmessage = "Error en la base de datos: Valor nulo o incorrecto.";
-        }catch (\Exception $e) {
+
+        } catch (\Exception $e) {
+
             $txtmessage = "Error fatal al actualizar el cliente.";
         }
 
@@ -119,8 +138,11 @@ class ClienteController extends Controller {
         ];
 
         if($result){
+
             return redirect()->route('main')->with($message);
-        }else{
+
+        } else {
+
             return back()->withInput()->withErrors($message);
         }
     }
@@ -135,10 +157,14 @@ class ClienteController extends Controller {
 
             $result = $cliente->delete();
             $textmessage='El cliente se ha eliminado.';
-        }catch (\Illuminate\Database\QueryException $e) {
+
+        } catch (\Illuminate\Database\QueryException $e) {
+
             $result = false;
             $textmessage = 'Error: Este cliente no puede eliminarse porque tiene alquileres vinculados.';
-        }catch(\Exception $e){
+
+        } catch(\Exception $e) {
+
             $result = false;
             $textmessage='Error al eliminar el cliente.';
         }
@@ -148,8 +174,11 @@ class ClienteController extends Controller {
         ];
         
         if($result){
+
             return redirect()->route('main')->with($message);
+
         } else {
+            
             return back()->withInput()->withErrors($message);
         }
     }

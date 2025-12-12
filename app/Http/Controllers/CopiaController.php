@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
-// Importamos el modelo y clases necesarias
 use App\Models\Pelicula; 
 use App\Models\Copia; 
 use Illuminate\Database\UniqueConstraintViolationException;
@@ -11,7 +9,6 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-// Importamos los Requests necesarios
 use App\Http\Requests\CopiaCreateRequest; 
 use App\Http\Requests\CopiaEditRequest; 
 
@@ -38,15 +35,23 @@ class CopiaController extends Controller {
         $txtmessage = "";
 
         try {
+
             $result = $copia->save(); 
             $txtmessage = "La copia ha sido registrada correctamente.";
+
             
-        } catch(UniqueConstraintViolationException $e){
+        } catch(UniqueConstraintViolationException $e) {
+
             $txtmessage = "Clave duplicada: Ya existe una copia con ese código de barras.";
-        } catch(QueryException $e){
+
+        } catch(QueryException $e) {
+
             $txtmessage = "Error en la base de datos: Valor nulo o incorrecto.";
-        }catch (\Exception $e){
+
+        } catch (\Exception $e) {
+
             $txtmessage = "Error Fatal al guardar la copia: " . $e->getMessage();
+
         }
 
         $message = [
@@ -59,12 +64,6 @@ class CopiaController extends Controller {
             return back()->withInput()->withErrors($message);
         }
     }
-
-
-    // public function show(Copia $copia):View{
-    //     return view('copia.show', ['copia' => $copia]);
-    // }
-   
 
     function edit(Copia $copia): View {
         $peliculas = Pelicula::pluck('titulo', 'id');
@@ -79,13 +78,20 @@ class CopiaController extends Controller {
         $txtmessage = "";
 
         try {
+
             $result = $copia->save();
             $txtmessage = "La copia se ha actualizado correctamente.";
+
         } catch(UniqueConstraintViolationException $e) {
+
             $txtmessage = "Clave duplicada: Ya existe otra copia con ese código de barras.";
+            
         } catch(QueryException $e) {
+
             $txtmessage = "Error en la base de datos: Valor nulo o incorrecto.";
-        }catch (\Exception $e) {
+
+        } catch (\Exception $e) {
+
             $txtmessage = "Error fatal al actualizar la copia.";
         }
 
@@ -93,20 +99,26 @@ class CopiaController extends Controller {
             "mensajeTexto" => $txtmessage,
         ];
 
-        if($result){
+        if($result) {
+
             return redirect()->route('main')->with($message);
-        }else{
+
+        } else{
+
             return back()->withInput()->withErrors($message);
+
         }
     }
 
     function destroy(Copia $copia): RedirectResponse {
 
         try{      
+
             $result = $copia->delete();
             $textmessage='La copia se ha eliminado.';
-        }
-        catch(\Exception $e){
+
+        } catch(\Exception $e) {
+
             $result = false;
             $textmessage='Error al eliminar la copia. Asegúrate de que no tenga registros de alquiler activos.';
         }
@@ -115,7 +127,7 @@ class CopiaController extends Controller {
             'mensajeTexto' => $textmessage,
         ];
         
-        if($result){
+        if($result) {
             return redirect()->route('main')->with($message);
         } else {
             return back()->withInput()->withErrors($message);

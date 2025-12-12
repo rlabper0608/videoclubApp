@@ -1,5 +1,9 @@
 @extends('bootstrap.template')
 
+@section('styles')
+<link rel="stylesheet" href="{{ url('assets/css/auth/editStyle.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

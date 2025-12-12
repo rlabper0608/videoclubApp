@@ -13,8 +13,8 @@ return new class extends Migration {
             $table->date('fecha_dev')->nullable();
             $table->date('fecha_sal')->nullable();
             $table->decimal('precio', 6,2);
-            $table->foreign('idcopia')->references('id')->on('copia')->onDelete('cascade');
-            $table->foreign('idcliente')->references('id')->on('cliente')->onDelete('cascade');
+            $table->foreign('idcopia')->references('id')->on('copia');
+            $table->foreign('idcliente')->references('id')->on('cliente');
             $table->timestamps();
 
         });

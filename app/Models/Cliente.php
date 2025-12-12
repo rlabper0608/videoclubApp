@@ -11,7 +11,7 @@ class Cliente extends Model{
 
     protected $fillable = ['DNI', 'nombre', 'apellidos', 'telefono', 'email', 'foto'];
 
-    function getPath() {
+    function getPath():string {
         $path = url('assets/img/sin_foto_perfil.jpg');
         
         if($this->foto != null && file_exists(storage_path('app/public'). '/' . $this->foto)) {

@@ -55,18 +55,18 @@ Catálogo de Películas
                     <p class="card-text mb-3">
                         Director: {{ $pelicula->director }}
                     </p>
-                    @auth
-                        @if(Auth::user()->hasVerifiedEmail())
-                            <div class="mt-auto d-grid gap-2">
-                                <a href="{{ route('pelicula.show', $pelicula->id) }}" class="btn btn-sm btn-outline-accent">
-                                    Ver Detalle
-                                </a>
-                                <a href="{{ route('pelicula.edit', $pelicula->id) }}" class="btn btn-sm btn-outline-danger-custom">
-                                    Editar
-                                </a>
-                            </div>
-                        @endif
-                    @endauth
+                        <div class="mt-auto d-grid gap-2">
+                            <a href="{{ route('pelicula.show', $pelicula->id) }}" class="btn btn-sm btn-outline-accent">
+                                Ver Detalle
+                            </a>
+                            @auth
+                                @if(Auth::user()->hasVerifiedEmail())
+                            <a href="{{ route('pelicula.edit', $pelicula->id) }}" class="btn btn-sm btn-outline-danger-custom">
+                                Editar
+                            </a>
+                                   @endif
+                            @endauth
+                        </div>
                 </div>
             </div> 
         </div> 

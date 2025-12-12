@@ -96,7 +96,7 @@ style="background-color: var(--rent-accent, #8b5cf6); border-color: var(--rent-a
               <td>{{ $alquiler->copia->pelicula->titulo }} - {{ $alquiler->copia->formato }}</td>
               <td>{{ $alquiler->cliente->nombre }}</td>
               <td>{{ $alquiler->fecha_sal }}</td>
-              <td>{{ $alquiler->fecha_deb }}</td>
+              <td>{{ $alquiler->fecha_dev }}</td>
               <td>
                   <a href=" {{ route('alquiler.edit', $alquiler->id) }}" class="btn btn-warning btn-sm text-white">Edit</a>
                   <a class="link-destroy btn btn-danger btn-sm text-white" 

@@ -47,8 +47,11 @@ class HomeController extends Controller {
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if($validator->fails()) {
+
             return back()->withInput()->withErrors($validator);
+
         }
+
         $user->name = $request->name;
         if($request->email != $user->email) {
             $user->email = $request->email;
@@ -62,16 +65,18 @@ class HomeController extends Controller {
         try {
             $result = $user->save();
             $message = 'El usuario se ha modificado correctamente.';
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $message = "Lo sentimos, ocurrió un error y el usuario no se pudo modificar.";
             $result = false;
         }
+
         $messageArray = [
             'general' => $message,
         ];
-        if($result) {
+
+        if ($result) {
             return redirect()->route('home')->with($messageArray);
-        }else {
+        } else {
             return back()->withInput()->withErrors($messageArray);
         }
     }
